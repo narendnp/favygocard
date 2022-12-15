@@ -1,0 +1,20 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  color-scheme: dark;
+}
+
+.search-results {
+  position: sticky;
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 680px !important; /* or 950px */
+}
