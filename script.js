@@ -60,12 +60,6 @@ var favLink_imgurl = this.value;
 // Add an event listener to the search input field that listens for the "input" event
 if (favDeckInput) {
   favDeckInput.addEventListener("input", function() {
-
-    // // Clear the timeout
-    // clearTimeout();
-
-    // // Set the timeout to wait after user finishes typing
-    // timeout = setTimeout(function() {
     // Get the search term from the input field
     const searchTerm = this.value;
 
@@ -116,7 +110,6 @@ if (favDeckInput) {
         // Add the <ul> element to the search results container
         favDeckResults.appendChild(list);
       });
-    // }, 250);
   });
 };
 
