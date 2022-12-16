@@ -9,6 +9,7 @@ The script creates an API call to search for any card that you type from its dat
 
 ## Limitations
 - For now, Desktop user can simply **_Right-click_** and **_Save image as_** to download the image, while Mobile user might need to screenshot the page.
+- If you choose a card that has multiple artworks, it will choose the card image that has the first artwork (you can't change it).
 - Search results isn't filtered by card type.
 
 ## To-do
