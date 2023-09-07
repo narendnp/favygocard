@@ -22,4 +22,7 @@ All forms of contribution are very much welcome! I'm currently learning HTML/CSS
 - [YGOPRODeck API](https://ygoprodeck.com/api-guide/)
 - [Bootstrap 5 Dark Theme](https://github.com/vinorodrigues/bootstrap-dark-5)
 
+## License
+- GNU GPL
+
 
