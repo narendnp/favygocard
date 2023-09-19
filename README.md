@@ -1,6 +1,6 @@
 # Favorite Yu-Gi-Oh! Card
 
-favygocard is a mini-project that aims to turn [this meme](https://i.imgur.com/7eehKJa.jpg) to somewhat be automated. 
+favygocard is a mini-project that aims to turn [this meme](https://i.imgur.com/7eehKJa.jpg) to somewhat be [automated](https://github.com/narendnp/favygocard/blob/master/example.png). 
 
 Try it now [here](https://narendnp.github.io/favygocard) or [here](https://favygocard.narendnp.repl.co)!
 
