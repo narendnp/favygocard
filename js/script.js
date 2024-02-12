@@ -28,7 +28,7 @@ const favPendulumResults = document.querySelector("#favPendulum-results");
 const favLinkInput = document.querySelector("#search-favLink");
 const favLinkResults = document.querySelector("#favLink-results");
 
-const template_imgurl = "template.png"; // Filename/URL of the template image
+const template_imgurl = "assets/template.png"; // Filename/URL of the template image
 
 var favDeck_name = this.value;
 var favDeck_imgurl = this.value;
