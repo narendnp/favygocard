@@ -18,3 +18,29 @@ body {
   margin-left: auto;
   max-width: 680px !important; /* or 950px */
 }
+
+#favDeck-results, 
+#favVanilla-results, 
+#favEffect-results, 
+#favRitual-results, 
+#favFusion-results, 
+#favSynchro-results, 
+#favXyz-results, 
+#favPendulum-results, 
+#favLink-results {
+  position: absolute;
+  width: 100%;
+  max-width: 655px !important;
+}
+
+#favDeck-results, 
+#favVanilla-results, 
+#favEffect-results, 
+#favRitual-results, 
+#favFusion-results, 
+#favSynchro-results, 
+#favXyz-results, 
+#favPendulum-results, 
+#favLink-results li:hover{
+  cursor: pointer;
+}
