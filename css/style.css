@@ -7,40 +7,25 @@ body {
   color-scheme: dark;
 }
 
-.search-results {
-  position: sticky;
-  overflow-y: scroll;
-  max-height: 400px;
-}
-
 .container {
   margin-right: auto;
   margin-left: auto;
-  max-width: 680px !important; /* or 950px */
+  max-width: 680px !important;
 }
 
-#favDeck-results, 
-#favVanilla-results, 
-#favEffect-results, 
-#favRitual-results, 
-#favFusion-results, 
-#favSynchro-results, 
-#favXyz-results, 
-#favPendulum-results, 
-#favLink-results {
+.search-results {
   position: absolute;
   width: 100%;
+  max-height: 400px;
   max-width: 655px !important;
+  overflow-y: scroll;
 }
 
-#favDeck-results, 
-#favVanilla-results, 
-#favEffect-results, 
-#favRitual-results, 
-#favFusion-results, 
-#favSynchro-results, 
-#favXyz-results, 
-#favPendulum-results, 
-#favLink-results li:hover{
+.search-results li:hover {
   cursor: pointer;
+  background-color: #707070;
+}
+
+#footer {
+  margin-bottom: 100px !important;
 }
