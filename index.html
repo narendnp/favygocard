@@ -15,7 +15,7 @@
 
 <body>
   <div class="container">
-    <div class="mt-5">
+    <div class="mb-5 mt-5">
       <h1 class="text-center">Favorite Yu-Gi-Oh! Cards Generator</h1>
       <h6 class="text-center text-muted">An easy to use, automated <a href="assets/example.png">template</a> to create your
         Favorite Yu-Gi-Oh! Cards.</h6>
@@ -68,17 +68,16 @@
         <div id="favLink-results" class="search-results"></div>
       </div>
     </form>
-    <div class="mt-5">
+    <div class="mb-5 mt-5">
       <div class="mb-5 text-center">
-        <button type="button" id="reset-button" class="btn btn-secondary" onclick="clearInput()">Reset</button>
-        <button type="button" id="generate-button" class="btn btn-primary" onclick="generateImage()">Generate</button>
-<!--         <button type="button" id="download-button" class="btn btn-primary" onclick="downloadImage()" style="display: none;">Download</button> -->
+        <div class="mb-5 text-center" id="canvas-results"></div>
+        <button type="button" id="back-button" class="mb-5 btn btn-primary" style="display: none;" onclick="showForm()">Back</button>
+        <button type="button" id="reset-button" class="mb-5 btn btn-secondary" onclick="clearInput()">Reset</button>
+        <button type="button" id="generate-button" class="mb-5 btn btn-primary" onclick="generateImage()">Generate</button>
+        <button type="button" id="download-button" class="mb-5 btn btn-success" onclick="downloadImage()" style="display: none;">Download</button>
       </div>
-      <div class="mb-5 text-center" id="canvas-results"></div>
     </div>
   </div>
-  <div class="mb-5"></div>
-  <!-- <script src="js/bootstrap-min.js"></script> -->
   <script src="js/script.js"></script>
 </body>
 
