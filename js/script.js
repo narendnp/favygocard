@@ -1,4 +1,3 @@
-// Get a reference to the search form, search input, and search results container elements
 const canvasResults = document.querySelector("#canvas-results");
 
 const favDeckInput = document.querySelector("#search-favDeck");
@@ -28,7 +27,7 @@ const favPendulumResults = document.querySelector("#favPendulum-results");
 const favLinkInput = document.querySelector("#search-favLink");
 const favLinkResults = document.querySelector("#favLink-results");
 
-const template_imgurl = "assets/template.png"; // Filename/URL of the template image
+const template_imgurl = "assets/template.png";
 
 var favDeck_name = this.value;
 var favDeck_imgurl = this.value;
@@ -56,6 +55,12 @@ var favPendulum_imgurl = this.value;
 
 var favLink_name = this.value;
 var favLink_imgurl = this.value;
+
+const corsProxy = "https://corsproxy.narendnp.workers.dev/?";
+const apiEndpoint = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=";
+const apiFetchURL = corsProxy + apiEndpoint;
+
+var dataUrl = this.value;
 
 // Function to delete a search result element
 function deleteSearchResult(element) {
@@ -119,9 +124,7 @@ const debouncedFavDeckHandler = debounce(function () {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
 
   // Make an API request to the ygoprodeck API
-  fetch(
-    `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-  )
+  fetch(`${apiFetchURL}${encodedSearchTerm}`)
     .then((response) => response.json())
     .then((data) => {
       // Handle the API response
@@ -150,7 +153,7 @@ const debouncedFavDeckHandler = debounce(function () {
             console.log(favDeck_name);
             // Save the "image_url" property for later use
             favDeck_imgurl = result.card_images[0].image_url;
-            // favDeck_imgurl.crossOrigin = "anonymous";
+
             console.log(favDeck_imgurl);
           });
 
@@ -174,9 +177,7 @@ const debouncedVanillaInputHandler = debounce(function () {
     const encodedSearchTerm = encodeURIComponent(searchTerm);
 
     // Make an API request to the ygoprodeck API
-    fetch(
-      `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-    )
+    fetch(`${apiFetchURL}${encodedSearchTerm}`)
       .then((response) => response.json())
       .then((data) => {
         // Handle the API response
@@ -205,7 +206,7 @@ const debouncedVanillaInputHandler = debounce(function () {
               console.log(favVanilla_name);
               // Save the "image_url" property for later use
               favVanilla_imgurl = result.card_images[0].image_url;
-              // favVanilla_imgurl.crossOrigin = "anonymous";
+
               console.log(favVanilla_imgurl);
             });
 
@@ -229,9 +230,7 @@ const searchTerm = this.value;
 const encodedSearchTerm = encodeURIComponent(searchTerm);
 
 // Make an API request to the ygoprodeck API
-fetch(
-  `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-)
+fetch(`${apiFetchURL}${encodedSearchTerm}`)
   .then((response) => response.json())
   .then((data) => {
     // Handle the API response
@@ -260,7 +259,7 @@ fetch(
           console.log(favEffect_name);
           // Save the "image_url" property for later use
           favEffect_imgurl = result.card_images[0].image_url;
-          // favEffect_imgurl.crossOrigin = "anonymous";
+
           console.log(favEffect_imgurl);
         });
 
@@ -284,9 +283,7 @@ const searchTerm = this.value;
 const encodedSearchTerm = encodeURIComponent(searchTerm);
 
 // Make an API request to the ygoprodeck API
-fetch(
-  `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-)
+fetch(`${apiFetchURL}${encodedSearchTerm}`)
   .then((response) => response.json())
   .then((data) => {
     // Handle the API response
@@ -315,7 +312,7 @@ fetch(
           console.log(favRitual_name);
           // Save the "image_url" property for later use
           favRitual_imgurl = result.card_images[0].image_url;
-          // favRitual_imgurl.crossOrigin = "anonymous";
+
           console.log(favRitual_imgurl);
         });
 
@@ -339,9 +336,7 @@ const searchTerm = this.value;
 const encodedSearchTerm = encodeURIComponent(searchTerm);
 
 // Make an API request to the ygoprodeck API
-fetch(
-  `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-)
+fetch(`${apiFetchURL}${encodedSearchTerm}`)
   .then((response) => response.json())
   .then((data) => {
     // Handle the API response
@@ -370,7 +365,7 @@ fetch(
           console.log(favFusion_name);
           // Save the "image_url" property for later use
           favFusion_imgurl = result.card_images[0].image_url;
-          // favFusion_imgurl.crossOrigin = "anonymous";
+
           console.log(favFusion_imgurl);
         });
 
@@ -394,9 +389,7 @@ const searchTerm = this.value;
 const encodedSearchTerm = encodeURIComponent(searchTerm);
 
 // Make an API request to the ygoprodeck API
-fetch(
-  `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-)
+fetch(`${apiFetchURL}${encodedSearchTerm}`)
   .then((response) => response.json())
   .then((data) => {
     // Handle the API response
@@ -425,7 +418,7 @@ fetch(
           console.log(favSynchro_name);
           // Save the "image_url" property for later use
           favSynchro_imgurl = result.card_images[0].image_url;
-          // favSynchro_imgurl.crossOrigin = "anonymous";
+
           console.log(favSynchro_imgurl);
         });
 
@@ -449,9 +442,7 @@ const searchTerm = this.value;
 const encodedSearchTerm = encodeURIComponent(searchTerm);
 
 // Make an API request to the ygoprodeck API
-fetch(
-  `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-)
+fetch(`${apiFetchURL}${encodedSearchTerm}`)
   .then((response) => response.json())
   .then((data) => {
     // Handle the API response
@@ -480,7 +471,7 @@ fetch(
           console.log(favXyz_name);
           // Save the "image_url" property for later use
           favXyz_imgurl = result.card_images[0].image_url;
-          // favXyz_imgurl.crossOrigin = "anonymous";
+
           console.log(favXyz_imgurl);
         });
 
@@ -504,9 +495,7 @@ const searchTerm = this.value;
 const encodedSearchTerm = encodeURIComponent(searchTerm);
 
 // Make an API request to the ygoprodeck API
-fetch(
-  `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-)
+fetch(`${apiFetchURL}${encodedSearchTerm}`)
   .then((response) => response.json())
   .then((data) => {
     // Handle the API response
@@ -535,7 +524,7 @@ fetch(
           console.log(favPendulum_name);
           // Save the "image_url" property for later use
           favPendulum_imgurl = result.card_images[0].image_url;
-          // favPendulum_imgurl.crossOrigin = "anonymous";
+
           console.log(favPendulum_imgurl);
         });
 
@@ -559,9 +548,7 @@ const debouncedLinkInputHandler = debounce(function () {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
 
   // Make an API request to the ygoprodeck API
-  fetch(
-    `https://corsproxy.narendnp.workers.dev/?https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodedSearchTerm}`
-  )
+  fetch(`${apiFetchURL}${encodedSearchTerm}`)
     .then((response) => response.json())
     .then((data) => {
       // Handle the API response
@@ -590,7 +577,7 @@ const debouncedLinkInputHandler = debounce(function () {
             console.log(favLink_name);
             // Save the "image_url" property for later use
             favLink_imgurl = result.card_images[0].image_url;
-            // favLink_imgurl.crossOrigin = "anonymous";
+
             console.log(favLink_imgurl);
           });
 
@@ -654,23 +641,22 @@ function generateImage() {
     var images = {};
     var loadedImages = 0;
     var numImages = 0;
-    // get num of sources
+
     for (var src in sources) {
       numImages++;
     }
     for (var src in sources) {
       images[src] = new Image();
+      images[src].crossOrigin = "anonymous";
       images[src].onload = function () {
         if (++loadedImages >= numImages) {
           callback(images);
         }
       };
-      // images[src].crossOrigin = "anonymous";
-      images[src].src = sources[src];
+      images[src].src = corsProxy + sources[src];
     }
   }
 
-  // var canvas = document.createElement('canvas');
   var context = canvas.getContext("2d");
   canvas.width = 640;
   canvas.height = 920;
@@ -686,24 +672,8 @@ function generateImage() {
     img7: favXyz_imgurl,
     img8: favPendulum_imgurl,
     img9: favLink_imgurl,
-    // img0: template_imgurl,
-    // img1: "https://images.ygoprodeck.com/images/cards/48680970.jpg",
-    // img2: "https://images.ygoprodeck.com/images/cards/46986414.jpg",
-    // img3: "https://images.ygoprodeck.com/images/cards/97631303.jpg",
-    // img4: "https://images.ygoprodeck.com/images/cards/12266229.jpg",
-    // img5: "https://images.ygoprodeck.com/images/cards/37818794.jpg",
-    // img6: "https://images.ygoprodeck.com/images/cards/84815190.jpg",
-    // img7: "https://images.ygoprodeck.com/images/cards/85551711.jpg",
-    // img8: "https://images.ygoprodeck.com/images/cards/3611830.jpg",
-    // img9: "https://images.ygoprodeck.com/images/cards/41999284.jpg"
   };
 
-  // drawImage(image, dx, dy, dWidth, dHeight)
-  // 420 width, 614 height
-
-  // for (let index = 0; index < bound; index++) {
-  //   sources[index]
-  // }
   loadImages(sources, function (images) {
     context.drawImage(images.img0, 0, 0);
     context.drawImage(images.img1, 29, 58, 156, 227);
@@ -720,33 +690,34 @@ function generateImage() {
   canvasResults.appendChild(canvas);
   document.getElementById("input-form").style.display = "none";
   document.getElementById("generate-button").style.display = "none";
-  // document.getElementById("download-button").style.display = 'inline';
+  document.getElementById("back-button").style.display = "inline";
+  document.getElementById("download-button").style.display = 'inline';
 }
 
 function clearInput() {
   document.getElementById("input-form").reset();
   document.getElementById("input-form").style.display = "block";
   document.getElementById("generate-button").style.display = "inline";
-  // document.getElementById("download-button").style.display = 'none';
+  document.getElementById("back-button").style.display = "none";
+  document.getElementById("download-button").style.display = 'none';
+  canvasResults.innerHTML = "";
+}
+
+function showForm() {
+  document.getElementById("input-form").style.display = "block";
+  document.getElementById("generate-button").style.display = "inline";
+  document.getElementById("back-button").style.display = "none";
+  document.getElementById("download-button").style.display = 'none';
   canvasResults.innerHTML = "";
 }
 
 function downloadImage() {
   var canvas = document.getElementById("canvas-data");
-
-  // get canvas data
-  var image = new Image();
-  image.crossOrigin = "anonymous";
-
-  image = canvas.toDataURL("image/png");
-  // image.setAttribute('crossOrigin', 'anonymous');
-
-  // create temporary link
+  var dataUrl = canvas.toDataURL("image/png");
   var tmpLink = document.createElement("a");
-  tmpLink.download = "image.png"; // set the name of the download file
-  tmpLink.href = image;
-
-  // temporarily add link to body and initiate the download
+  tmpLink.download = "favygocard.png";
+  tmpLink.href = dataUrl;
   document.body.appendChild(tmpLink);
   tmpLink.click();
+  document.body.removeChild(tmpLink);
 }
