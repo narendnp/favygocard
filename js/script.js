@@ -27,7 +27,7 @@ const favPendulumResults = document.querySelector("#favPendulum-results");
 const favLinkInput = document.querySelector("#search-favLink");
 const favLinkResults = document.querySelector("#favLink-results");
 
-const template_imgurl = "assets/template.png";
+const template_imgurl = "https://raw.githubusercontent.com/narendnp/favygocard/master/assets/template.png";
 
 var favDeck_name = this.value;
 var favDeck_imgurl = this.value;
