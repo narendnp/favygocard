@@ -636,6 +636,7 @@ canvas.setAttribute("id", "canvas-data");
 
 function generateImage() {
   canvasResults.innerHTML = "";
+  document.querySelector('.form-spinner').style.display = 'block';
 
   function loadImages(sources, callback) {
     var images = {};
@@ -650,6 +651,7 @@ function generateImage() {
       images[src].crossOrigin = "anonymous";
       images[src].onload = function () {
         if (++loadedImages >= numImages) {
+          document.querySelector('.form-spinner').style.display = 'none';
           callback(images);
         }
       };
@@ -695,6 +697,7 @@ function generateImage() {
 }
 
 function clearInput() {
+  document.querySelector('.form-spinner').style.display = 'none';
   document.getElementById("input-form").reset();
   document.getElementById("input-form").style.display = "block";
   document.getElementById("generate-button").style.display = "inline";
@@ -704,6 +707,7 @@ function clearInput() {
 }
 
 function showForm() {
+  document.querySelector('.form-spinner').style.display = 'none';
   document.getElementById("input-form").style.display = "block";
   document.getElementById("generate-button").style.display = "inline";
   document.getElementById("back-button").style.display = "none";

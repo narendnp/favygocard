@@ -28,7 +28,7 @@
         <div id="favDeck-results" class="search-results"></div>
       </div>
       <div class="mb-3">
-        <label for="search-favVanilla" class="mb-1">Your Favorite Vanilla Monster:</label>
+        <label for="search-favVanilla" class="mb-1">Your Favorite Normal Monster:</label>
         <input type="text" id="search-favVanilla" name="search-favVanilla" class="form-control">
         <div id="favVanilla-results" class="search-results"></div>
       </div>
@@ -41,7 +41,7 @@
         <label for="search-favRitual" class="mb-1">Your Favorite Ritual Monster:</label>
         <input type="text" id="search-favRitual" name="search-favRitual" class="form-control">
         <div id="favRitual-results" class="search-results"></div>
-        <div class="mb-3">
+      <div class="mb-3">
         </div>
         <label for="search-favFusion" class="mb-1">Your Favorite Fusion Monster:</label>
         <input type="text" id="search-favFusion" name="search-favFusion" class="form-control">
@@ -68,14 +68,15 @@
         <div id="favLink-results" class="search-results"></div>
       </div>
     </form>
-    <div class="mb-5 mt-5">
-      <div class="mb-5 text-center">
+    <div class="mb-5 mt-5 text-center buttons-container">
+        <div class="form-spinner spinner-border" style="display: none;" role="status">
+          <span class="sr-only form-spinner" style="display: none;">Loading...</span>
+        </div>
         <div class="mb-5 text-center" id="canvas-results"></div>
         <button type="button" id="back-button" class="mb-5 btn btn-primary" style="display: none;" onclick="showForm()">Back</button>
         <button type="button" id="reset-button" class="mb-5 btn btn-secondary" onclick="clearInput()">Reset</button>
         <button type="button" id="generate-button" class="mb-5 btn btn-primary" onclick="generateImage()">Generate</button>
         <button type="button" id="download-button" class="mb-5 btn btn-success" onclick="downloadImage()" style="display: none;">Download</button>
-      </div>
     </div>
   </div>
   <script src="js/script.js"></script>
