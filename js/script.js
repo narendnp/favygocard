@@ -636,28 +636,17 @@ canvas.setAttribute("id", "canvas-data");
 
 function generateImage() {
   canvasResults.innerHTML = "";
-  document.querySelector('.form-spinner').style.display = 'block';
+  const spinner = document.querySelector('.form-spinner');
+  const backButton = document.getElementById('back-button');
+  const generateButton = document.getElementById('generate-button');
+  const downloadButton = document.getElementById('download-button');
+  const inputForm = document.getElementById('input-form');
 
-  function loadImages(sources, callback) {
-    var images = {};
-    var loadedImages = 0;
-    var numImages = 0;
-
-    for (var src in sources) {
-      numImages++;
-    }
-    for (var src in sources) {
-      images[src] = new Image();
-      images[src].crossOrigin = "anonymous";
-      images[src].onload = function () {
-        if (++loadedImages >= numImages) {
-          document.querySelector('.form-spinner').style.display = 'none';
-          callback(images);
-        }
-      };
-      images[src].src = corsProxy + sources[src];
-    }
-  }
+  spinner.classList.remove('hidden');
+  inputForm.style.display = "none";
+  generateButton.style.display = "none";
+  backButton.classList.remove('hidden');
+  downloadButton.classList.remove('hidden');
 
   var context = canvas.getContext("2d");
   canvas.width = 640;
@@ -676,42 +665,74 @@ function generateImage() {
     img9: favLink_imgurl,
   };
 
-  loadImages(sources, function (images) {
-    context.drawImage(images.img0, 0, 0);
-    context.drawImage(images.img1, 29, 58, 156, 227);
-    context.drawImage(images.img2, 242, 58, 156, 227);
-    context.drawImage(images.img3, 455, 58, 156, 227);
-    context.drawImage(images.img4, 29, 366, 156, 227);
-    context.drawImage(images.img5, 242, 366, 156, 227);
-    context.drawImage(images.img6, 455, 366, 156, 227);
-    context.drawImage(images.img7, 29, 671, 156, 227);
-    context.drawImage(images.img8, 242, 671, 156, 227);
-    context.drawImage(images.img9, 455, 671, 156, 227);
-  });
+  function loadImages(sources, callback) {
+    var images = {};
+    var loadedImages = 0;
+    var numImages = 0;
+
+    for (var src in sources) {
+      numImages++;
+    }
+
+    for (var src in sources) {
+      images[src] = new Image();
+      images[src].crossOrigin = "anonymous";
+      images[src].onload = function () {
+        if (++loadedImages >= numImages) {
+          context.drawImage(images.img0, 0, 0);
+          context.drawImage(images.img1, 29, 58, 156, 227);
+          context.drawImage(images.img2, 242, 58, 156, 227);
+          context.drawImage(images.img3, 455, 58, 156, 227);
+          context.drawImage(images.img4, 29, 366, 156, 227);
+          context.drawImage(images.img5, 242, 366, 156, 227);
+          context.drawImage(images.img6, 455, 366, 156, 227);
+          context.drawImage(images.img7, 29, 671, 156, 227);
+          context.drawImage(images.img8, 242, 671, 156, 227);
+          context.drawImage(images.img9, 455, 671, 156, 227);
+          
+          spinner.classList.add('hidden');
+        }
+      };
+      images[src].onerror = function() {
+        spinner.classList.add('hidden');
+        console.error('Error loading image:', src);
+      };
+      images[src].src = corsProxy + sources[src];
+    }
+  }
 
   canvasResults.appendChild(canvas);
-  document.getElementById("input-form").style.display = "none";
-  document.getElementById("generate-button").style.display = "none";
-  document.getElementById("back-button").style.display = "inline";
-  document.getElementById("download-button").style.display = 'inline';
+  loadImages(sources);
 }
 
 function clearInput() {
-  document.querySelector('.form-spinner').style.display = 'none';
+  const spinner = document.querySelector('.form-spinner');
+  const backButton = document.getElementById('back-button');
+  const generateButton = document.getElementById('generate-button');
+  const downloadButton = document.getElementById('download-button');
+  const inputForm = document.getElementById('input-form');
+
+  spinner.classList.add('hidden');
+  inputForm.style.display = "block";
+  generateButton.style.display = "inline";
+  backButton.classList.add('hidden');
+  downloadButton.classList.add('hidden');
   document.getElementById("input-form").reset();
-  document.getElementById("input-form").style.display = "block";
-  document.getElementById("generate-button").style.display = "inline";
-  document.getElementById("back-button").style.display = "none";
-  document.getElementById("download-button").style.display = 'none';
   canvasResults.innerHTML = "";
 }
 
 function showForm() {
-  document.querySelector('.form-spinner').style.display = 'none';
-  document.getElementById("input-form").style.display = "block";
-  document.getElementById("generate-button").style.display = "inline";
-  document.getElementById("back-button").style.display = "none";
-  document.getElementById("download-button").style.display = 'none';
+  const spinner = document.querySelector('.form-spinner');
+  const backButton = document.getElementById('back-button');
+  const generateButton = document.getElementById('generate-button');
+  const downloadButton = document.getElementById('download-button');
+  const inputForm = document.getElementById('input-form');
+
+  spinner.classList.add('hidden');
+  inputForm.style.display = "block";
+  generateButton.style.display = "inline";
+  backButton.classList.add('hidden');
+  downloadButton.classList.add('hidden');
   canvasResults.innerHTML = "";
 }
 
