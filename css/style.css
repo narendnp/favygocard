@@ -100,3 +100,7 @@ html, body {
     padding: 0.5rem 0.75rem;
   }
 }
+
+body, main, footer {
+  background-color: #111827;
+}
