@@ -29,38 +29,38 @@ const favLinkResults = document.querySelector("#favLink-results");
 
 const template_imgurl = "https://raw.githubusercontent.com/narendnp/favygocard/master/assets/template.png";
 
-var favDeck_name = this.value;
-var favDeck_imgurl = this.value;
+var favDeck_name = "";
+var favDeck_imgurl = "";
 
-var favVanilla_name = this.value;
-var favVanilla_imgurl = this.value;
+var favVanilla_name = "";
+var favVanilla_imgurl = "";
 
-var favEffect_name = this.value;
-var favEffect_imgurl = this.value;
+var favEffect_name = "";
+var favEffect_imgurl = "";
 
-var favRitual_name = this.value;
-var favRitual_imgurl = this.value;
+var favRitual_name = "";
+var favRitual_imgurl = "";
 
-var favFusion_name = this.value;
-var favFusion_imgurl = this.value;
+var favFusion_name = "";
+var favFusion_imgurl = "";
 
-var favSynchro_name = this.value;
-var favSynchro_imgurl = this.value;
+var favSynchro_name = "";
+var favSynchro_imgurl = "";
 
-var favXyz_name = this.value;
-var favXyz_imgurl = this.value;
+var favXyz_name = "";
+var favXyz_imgurl = "";
 
-var favPendulum_name = this.value;
-var favPendulum_imgurl = this.value;
+var favPendulum_name = "";
+var favPendulum_imgurl = "";
 
-var favLink_name = this.value;
-var favLink_imgurl = this.value;
+var favLink_name = "";
+var favLink_imgurl = "";
 
 const corsProxy = "https://corsproxy.narendnp.workers.dev/?";
 const apiEndpoint = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=";
 const apiFetchURL = corsProxy + apiEndpoint;
 
-var dataUrl = this.value;
+var dataUrl = "";
 
 // Function to delete a search result element
 function deleteSearchResult(element) {
@@ -116,485 +116,120 @@ function debounce(func, delay) {
   };
 }
 
-const debouncedFavDeckHandler = debounce(function () {
-  // Get the search term from the input field
-  const searchTerm = this.value;
-
-  // Encode the search term using the encodeURIComponent() function
-  const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-  // Make an API request to the ygoprodeck API
-  fetch(`${apiFetchURL}${encodedSearchTerm}`)
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the API response
-      // Create a <ul> element to hold the search results
-      const list = document.createElement("ul");
-      list.classList.add("list-group");
-
-      // Check if the data variable is an array
-      if (Array.isArray(data.data)) {
-        // Loop through the search results and create a <li> element for each result
-        data.data.forEach((result) => {
-          // console.log(result);
-          const item = document.createElement("li");
-          item.classList.add("list-group-item");
-
-          // Set the text of the <li> element to the "name" property of the result
-          item.innerText = result.name;
-
-          // Add a click event listener to the <li> element that saves the selected item to a variable
-          item.addEventListener("click", function () {
-            selectedItem = this.innerHTML;
-            document.getElementById("search-favDeck").value = selectedItem;
-            favDeckResults.innerHTML = "";
-            // Save the "name" property for later use
-            favDeck_name = result.name;
-            console.log(favDeck_name);
-            // Save the "image_url" property for later use
-            favDeck_imgurl = result.card_images[0].image_url;
-
-            console.log(favDeck_imgurl);
-          });
-
-          list.appendChild(item);
-        });
-      }
-
-      // Clear the search results container
-      favDeckResults.innerHTML = "";
-
-      // Add the <ul> element to the search results container
-      favDeckResults.appendChild(list);
-    });
-}, 500);
-
-const debouncedVanillaInputHandler = debounce(function () {
+// Create a reusable function for all card types
+function createCardSearchHandler(inputElement, resultsElement, nameVar, imgUrlVar) {
+  return debounce(function() {
     // Get the search term from the input field
     const searchTerm = this.value;
-
-    // Encode the search term using the encodeURIComponent() function
+    
+    // Encode the search term
     const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-    // Make an API request to the ygoprodeck API
+    
+    // Make API request
     fetch(`${apiFetchURL}${encodedSearchTerm}`)
       .then((response) => response.json())
       .then((data) => {
-        // Handle the API response
-        // Create a <ul> element to hold the search results
+        // Create results list
         const list = document.createElement("ul");
         list.classList.add("list-group");
-
-        // Check if the data variable is an array
+        
         if (Array.isArray(data.data)) {
-          // Loop through the search results and create a <li> element for each result
           data.data.forEach((result) => {
-            // console.log(result);
             const item = document.createElement("li");
             item.classList.add("list-group-item");
-
-            // Set the text of the <li> element to the "name" property of the result
             item.innerText = result.name;
-
-            // Add a click event listener to the <li> element that saves the selected item to a variable
-            item.addEventListener("click", function () {
-              selectedItem = this.innerHTML;
-              document.getElementById("search-favVanilla").value = selectedItem;
-              favVanillaResults.innerHTML = "";
-              // Save the "name" property for later use
-              favVanilla_name = result.name;
-              console.log(favVanilla_name);
-              // Save the "image_url" property for later use
-              favVanilla_imgurl = result.card_images[0].image_url;
-
-              console.log(favVanilla_imgurl);
+            
+            item.addEventListener("click", function() {
+              const selectedItem = this.innerHTML;
+              inputElement.value = selectedItem;
+              resultsElement.innerHTML = "";
+              
+              // Save the card data to the appropriate variables
+              window[nameVar] = result.name;
+              window[imgUrlVar] = result.card_images[0].image_url;
+              
+              // Print the fetched card data to the console
+              console.log(window[nameVar]);
+              console.log(window[imgUrlVar]);
             });
-
+            
             list.appendChild(item);
           });
         }
-
-        // Clear the search results container
-        favVanillaResults.innerHTML = "";
-
-        // Add the <ul> element to the search results container
-        favVanillaResults.appendChild(list);
+        
+        // Clear and update results
+        resultsElement.innerHTML = "";
+        resultsElement.appendChild(list);
       });
-}, 500);
-
-const debouncedEffectInputHandler = debounce(function () {
-// Get the search term from the input field
-const searchTerm = this.value;
-
-// Encode the search term using the encodeURIComponent() function
-const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-// Make an API request to the ygoprodeck API
-fetch(`${apiFetchURL}${encodedSearchTerm}`)
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the API response
-    // Create a <ul> element to hold the search results
-    const list = document.createElement("ul");
-    list.classList.add("list-group");
-
-    // Check if the data variable is an array
-    if (Array.isArray(data.data)) {
-      // Loop through the search results and create a <li> element for each result
-      data.data.forEach((result) => {
-        // console.log(result);
-        const item = document.createElement("li");
-        item.classList.add("list-group-item");
-
-        // Set the text of the <li> element to the "name" property of the result
-        item.innerText = result.name;
-
-        // Add a click event listener to the <li> element that saves the selected item to a variable
-        item.addEventListener("click", function () {
-          selectedItem = this.innerHTML;
-          document.getElementById("search-favEffect").value = selectedItem;
-          favEffectResults.innerHTML = "";
-          // Save the "name" property for later use
-          favEffect_name = result.name;
-          console.log(favEffect_name);
-          // Save the "image_url" property for later use
-          favEffect_imgurl = result.card_images[0].image_url;
-
-          console.log(favEffect_imgurl);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
-    // Clear the search results container
-    favEffectResults.innerHTML = "";
-
-    // Add the <ul> element to the search results container
-    favEffectResults.appendChild(list);
-  });
-}, 500);
-
-const debouncedRitualInputHandler = debounce(function () {
-// Get the search term from the input field
-const searchTerm = this.value;
-
-// Encode the search term using the encodeURIComponent() function
-const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-// Make an API request to the ygoprodeck API
-fetch(`${apiFetchURL}${encodedSearchTerm}`)
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the API response
-    // Create a <ul> element to hold the search results
-    const list = document.createElement("ul");
-    list.classList.add("list-group");
-
-    // Check if the data variable is an array
-    if (Array.isArray(data.data)) {
-      // Loop through the search results and create a <li> element for each result
-      data.data.forEach((result) => {
-        // console.log(result);
-        const item = document.createElement("li");
-        item.classList.add("list-group-item");
-
-        // Set the text of the <li> element to the "name" property of the result
-        item.innerText = result.name;
-
-        // Add a click event listener to the <li> element that saves the selected item to a variable
-        item.addEventListener("click", function () {
-          selectedItem = this.innerHTML;
-          document.getElementById("search-favRitual").value = selectedItem;
-          favRitualResults.innerHTML = "";
-          // Save the "name" property for later use
-          favRitual_name = result.name;
-          console.log(favRitual_name);
-          // Save the "image_url" property for later use
-          favRitual_imgurl = result.card_images[0].image_url;
-
-          console.log(favRitual_imgurl);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
-    // Clear the search results container
-    favRitualResults.innerHTML = "";
-
-    // Add the <ul> element to the search results container
-    favRitualResults.appendChild(list);
-  });
-}, 500);
-
-const debouncedFusionInputHandler = debounce(function () {
-// Get the search term from the input field
-const searchTerm = this.value;
-
-// Encode the search term using the encodeURIComponent() function
-const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-// Make an API request to the ygoprodeck API
-fetch(`${apiFetchURL}${encodedSearchTerm}`)
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the API response
-    // Create a <ul> element to hold the search results
-    const list = document.createElement("ul");
-    list.classList.add("list-group");
-
-    // Check if the data variable is an array
-    if (Array.isArray(data.data)) {
-      // Loop through the search results and create a <li> element for each result
-      data.data.forEach((result) => {
-        // console.log(result);
-        const item = document.createElement("li");
-        item.classList.add("list-group-item");
-
-        // Set the text of the <li> element to the "name" property of the result
-        item.innerText = result.name;
-
-        // Add a click event listener to the <li> element that saves the selected item to a variable
-        item.addEventListener("click", function () {
-          selectedItem = this.innerHTML;
-          document.getElementById("search-favFusion").value = selectedItem;
-          favFusionResults.innerHTML = "";
-          // Save the "name" property for later use
-          favFusion_name = result.name;
-          console.log(favFusion_name);
-          // Save the "image_url" property for later use
-          favFusion_imgurl = result.card_images[0].image_url;
-
-          console.log(favFusion_imgurl);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
-    // Clear the search results container
-    favFusionResults.innerHTML = "";
-
-    // Add the <ul> element to the search results container
-    favFusionResults.appendChild(list);
-  });
-}, 500);
-
-const debouncedSynchroInputHandler = debounce(function () {
-// Get the search term from the input field
-const searchTerm = this.value;
-
-// Encode the search term using the encodeURIComponent() function
-const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-// Make an API request to the ygoprodeck API
-fetch(`${apiFetchURL}${encodedSearchTerm}`)
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the API response
-    // Create a <ul> element to hold the search results
-    const list = document.createElement("ul");
-    list.classList.add("list-group");
-
-    // Check if the data variable is an array
-    if (Array.isArray(data.data)) {
-      // Loop through the search results and create a <li> element for each result
-      data.data.forEach((result) => {
-        // console.log(result);
-        const item = document.createElement("li");
-        item.classList.add("list-group-item");
-
-        // Set the text of the <li> element to the "name" property of the result
-        item.innerText = result.name;
-
-        // Add a click event listener to the <li> element that saves the selected item to a variable
-        item.addEventListener("click", function () {
-          selectedItem = this.innerHTML;
-          document.getElementById("search-favSynchro").value = selectedItem;
-          favSynchroResults.innerHTML = "";
-          // Save the "name" property for later use
-          favSynchro_name = result.name;
-          console.log(favSynchro_name);
-          // Save the "image_url" property for later use
-          favSynchro_imgurl = result.card_images[0].image_url;
-
-          console.log(favSynchro_imgurl);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
-    // Clear the search results container
-    favSynchroResults.innerHTML = "";
-
-    // Add the <ul> element to the search results container
-    favSynchroResults.appendChild(list);
-  });
-}, 500);
-
-const debouncedXyzInputHandler = debounce(function () {
-// Get the search term from the input field
-const searchTerm = this.value;
-
-// Encode the search term using the encodeURIComponent() function
-const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-// Make an API request to the ygoprodeck API
-fetch(`${apiFetchURL}${encodedSearchTerm}`)
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the API response
-    // Create a <ul> element to hold the search results
-    const list = document.createElement("ul");
-    list.classList.add("list-group");
-
-    // Check if the data variable is an array
-    if (Array.isArray(data.data)) {
-      // Loop through the search results and create a <li> element for each result
-      data.data.forEach((result) => {
-        // console.log(result);
-        const item = document.createElement("li");
-        item.classList.add("list-group-item");
-
-        // Set the text of the <li> element to the "name" property of the result
-        item.innerText = result.name;
-
-        // Add a click event listener to the <li> element that saves the selected item to a variable
-        item.addEventListener("click", function () {
-          selectedItem = this.innerHTML;
-          document.getElementById("search-favXyz").value = selectedItem;
-          favXyzResults.innerHTML = "";
-          // Save the "name" property for later use
-          favXyz_name = result.name;
-          console.log(favXyz_name);
-          // Save the "image_url" property for later use
-          favXyz_imgurl = result.card_images[0].image_url;
-
-          console.log(favXyz_imgurl);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
-    // Clear the search results container
-    favXyzResults.innerHTML = "";
-
-    // Add the <ul> element to the search results container
-    favXyzResults.appendChild(list);
-  });
-}, 500);
-
-const debouncedPendulumInputHandler = debounce(function () {
-// Get the search term from the input field
-const searchTerm = this.value;
-
-// Encode the search term using the encodeURIComponent() function
-const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-// Make an API request to the ygoprodeck API
-fetch(`${apiFetchURL}${encodedSearchTerm}`)
-  .then((response) => response.json())
-  .then((data) => {
-    // Handle the API response
-    // Create a <ul> element to hold the search results
-    const list = document.createElement("ul");
-    list.classList.add("list-group");
-
-    // Check if the data variable is an array
-    if (Array.isArray(data.data)) {
-      // Loop through the search results and create a <li> element for each result
-      data.data.forEach((result) => {
-        // console.log(result);
-        const item = document.createElement("li");
-        item.classList.add("list-group-item");
-
-        // Set the text of the <li> element to the "name" property of the result
-        item.innerText = result.name;
-
-        // Add a click event listener to the <li> element that saves the selected item to a variable
-        item.addEventListener("click", function () {
-          selectedItem = this.innerHTML;
-          document.getElementById("search-favPendulum").value = selectedItem;
-          favPendulumResults.innerHTML = "";
-          // Save the "name" property for later use
-          favPendulum_name = result.name;
-          console.log(favPendulum_name);
-          // Save the "image_url" property for later use
-          favPendulum_imgurl = result.card_images[0].image_url;
-
-          console.log(favPendulum_imgurl);
-        });
-
-        list.appendChild(item);
-      });
-    }
-
-    // Clear the search results container
-    favPendulumResults.innerHTML = "";
-
-    // Add the <ul> element to the search results container
-    favPendulumResults.appendChild(list);
-  });
-}, 500);
-
-const debouncedLinkInputHandler = debounce(function () {
-  // Get the search term from the input field
-  const searchTerm = this.value;
-
-  // Encode the search term using the encodeURIComponent() function
-  const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-  // Make an API request to the ygoprodeck API
-  fetch(`${apiFetchURL}${encodedSearchTerm}`)
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the API response
-      // Create a <ul> element to hold the search results
-      const list = document.createElement("ul");
-      list.classList.add("list-group");
-
-      // Check if the data variable is an array
-      if (Array.isArray(data.data)) {
-        // Loop through the search results and create a <li> element for each result
-        data.data.forEach((result) => {
-          // console.log(result);
-          const item = document.createElement("li");
-          item.classList.add("list-group-item");
-
-          // Set the text of the <li> element to the "name" property of the result
-          item.innerText = result.name;
-
-          // Add a click event listener to the <li> element that saves the selected item to a variable
-          item.addEventListener("click", function () {
-            selectedItem = this.innerHTML;
-            document.getElementById("search-favLink").value = selectedItem;
-            favLinkResults.innerHTML = "";
-            // Save the "name" property for later use
-            favLink_name = result.name;
-            console.log(favLink_name);
-            // Save the "image_url" property for later use
-            favLink_imgurl = result.card_images[0].image_url;
-
-            console.log(favLink_imgurl);
-          });
-
-          list.appendChild(item);
-        });
-      }
-
-      // Clear the search results container
-      favLinkResults.innerHTML = "";
-
-      // Add the <ul> element to the search results container
-      favLinkResults.appendChild(list);
-    });
-}, 500);
+  }, 500);
+}
+
+// Create debounced handlers using the reusable function
+const debouncedFavDeckHandler = createCardSearchHandler(
+  favDeckInput, 
+  favDeckResults, 
+  'favDeck_name', 
+  'favDeck_imgurl'
+);
+
+const debouncedVanillaInputHandler = createCardSearchHandler(
+  favVanillaInput, 
+  favVanillaResults, 
+  'favVanilla_name', 
+  'favVanilla_imgurl'
+);
+
+const debouncedEffectInputHandler = createCardSearchHandler(
+  favEffectInput, 
+  favEffectResults, 
+  'favEffect_name', 
+  'favEffect_imgurl'
+);
+
+const debouncedRitualInputHandler = createCardSearchHandler(
+  favRitualInput, 
+  favRitualResults, 
+  'favRitual_name', 
+  'favRitual_imgurl'
+);
+
+const debouncedFusionInputHandler = createCardSearchHandler(
+  favFusionInput, 
+  favFusionResults, 
+  'favFusion_name', 
+  'favFusion_imgurl'
+);
+
+const debouncedSynchroInputHandler = createCardSearchHandler(
+  favSynchroInput, 
+  favSynchroResults, 
+  'favSynchro_name', 
+  'favSynchro_imgurl'
+);
+
+const debouncedXyzInputHandler = createCardSearchHandler(
+  favXyzInput, 
+  favXyzResults, 
+  'favXyz_name', 
+  'favXyz_imgurl'
+);
+
+const debouncedPendulumInputHandler = createCardSearchHandler(
+  favPendulumInput, 
+  favPendulumResults, 
+  'favPendulum_name', 
+  'favPendulum_imgurl'
+);
+
+const debouncedLinkInputHandler = createCardSearchHandler(
+  favLinkInput, 
+  favLinkResults, 
+  'favLink_name', 
+  'favLink_imgurl'
+);
 
 // Add an event listener to the each of the search input field that listens for the "input" event
-// Then call the respective debounce function
+// then call the respective debounce function
 if (favDeckInput) {
   favDeckInput.addEventListener("input", debouncedFavDeckHandler);
 }
